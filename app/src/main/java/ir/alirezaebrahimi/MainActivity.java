@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,17 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import ir.alirezaebrahimi.wheather.Weather;
+
+
+import static ir.alirezaebrahimi.R.drawable.abri;
+import static ir.alirezaebrahimi.R.drawable.abriaftabi;
+import static ir.alirezaebrahimi.R.drawable.aftabi;
+import static ir.alirezaebrahimi.R.drawable.background;
+import static ir.alirezaebrahimi.R.drawable.baran;
+import static ir.alirezaebrahimi.R.drawable.barf;
+import static ir.alirezaebrahimi.R.drawable.ice;
+import static ir.alirezaebrahimi.R.drawable.moon;
+import static ir.alirezaebrahimi.R.drawable.wind;
 
 public class MainActivity extends AppCompatActivity {
 public void connecttosite(String city)
@@ -31,7 +43,7 @@ public void connecttosite(String city)
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     final TextView cityview=findViewById(R.id.cityshow);
                     final TextView temp=findViewById(R.id.temp);
-
+                    final TextView text=findViewById(R.id.text);
                     Gson gson = new Gson();
                     Weather weather=gson.fromJson(response.toString(), Weather.class);
                     System.out.println("Received event with data: " + response);
@@ -43,80 +55,81 @@ public void connecttosite(String city)
                     String stringcityview=weather.getResult().getLocation().getCountry()+" "+weather.getResult().getLocation().getCity();
                      cityview.setText(stringcityview);
                     String sky=weather.getResult().getCondition().getText();
+                    text.setText(sky);
+                    LinearLayout ln=findViewById(R.id.background);
+                    switch (sky){
+                        case "Sunny":
 
-                    ImageView imageView=findViewById(R.id.imageView);
-                        switch (sky){
-                            case "Sunny":
-                               imageView.setImageResource(R.drawable.aftabi);
-                                break;
-                            case "Mostly Sunny":
-                                imageView.setImageResource(R.drawable.aftabi);
-                                break;
-                            case "Snow":
-                                imageView.setImageResource(R.drawable.barfi);
-                                break;
-                            case "Snow Flurries":
-                                imageView.setImageResource(R.drawable.barfi);
-                                break;
-                            case "Light Snow Showers":
-                                imageView.setImageResource(R.drawable.barfi);
-                                break;
-                            case "Blowing Snow":
-                                imageView.setImageResource(R.drawable.barfi);
-                                break;
-                            case "Mixed Rain And Snow":
-                                imageView.setImageResource(R.drawable.barfibarani);
-                                break;
-                            case "Mixed Rain And Sleet":
-                                imageView.setImageResource(R.drawable.abriaftabi);
-                                break;
-                            case "Freezing Rain":
-                                imageView.setImageResource(R.drawable.barfibarani);
-                                break;
-                            case "Rain":
-                                imageView.setImageResource(R.drawable.abribarani);
-                            case "Cold":
-                                imageView.setImageResource(R.drawable.abri);
-                                break;
-                            case "Freezing Drizzle":
-                                imageView.setImageResource(R.drawable.yakh);
-                                break;
-                            case "Showers":
-                                imageView.setImageResource(R.drawable.abribarani);
-                                break;
-                            case "Hail":
-                                imageView.setImageResource(R.drawable.abribarani);
-                                break;
-                            case "Windy":
-                                imageView.setImageResource(R.drawable.wind);
-                                break;
-                            case "Hot":
-                                imageView.setImageResource(R.drawable.aftabi);
-                                break;
-                            case "Heavy Snow":
-                                imageView.setImageResource(R.drawable.barfi);
-                                break;
-                            case "Partly Cloudy":
-                                imageView.setImageResource(R.drawable.abriaftabi);
-                                break;
-                            case "Cloudy":
-                                imageView.setImageResource(R.drawable.abri);
-                                break;
-                            case "Mostly Cloudy":
-                                imageView.setImageResource(R.drawable.abri);
-                                break;
-                            case "Scattered Showers":
-                                imageView.setImageResource(R.drawable.abribarani);
-                                break;
-                            case "Clear":
-                                imageView.setImageResource(R.drawable.aftabi);
-                                break;
-                            default:
-                                imageView.setImageResource(R.drawable.back1);
-                                break;
-                        }
+                            ln.setBackgroundResource(aftabi);
+                            break;
+                        case "Mostly Sunny":
+                            ln.setBackgroundResource(aftabi);
+                            break;
+                        case "Snow":
+                            ln.setBackgroundResource(barf);
+                            break;
+                        case "Snow Flurries":
+                            ln.setBackgroundResource(barf);
+                            break;
+                        case "Light Snow Showers":
+                            ln.setBackgroundResource(barf);
+                            break;
+                        case "Blowing Snow":
+                            ln.setBackgroundResource(barf);
+                            break;
+                        case "Mixed Rain And Snow":
+                            ln.setBackgroundResource(baran);
+                            break;
+                        case "Mixed Rain And Sleet":
+                            ln.setBackgroundResource(abriaftabi);
+                            break;
+                        case "Freezing Rain":
+                            ln.setBackgroundResource(baran);
+                            break;
+                        case "Rain":
+                            ln.setBackgroundResource(baran);
+                        case "Cold":
+                            ln.setBackgroundResource(abri);
+                            break;
+                        case "Freezing Drizzle":
+                            ln.setBackgroundResource(ice);
+                            break;
+                        case "Showers":
+                            ln.setBackgroundResource(baran);
+                            break;
+                        case "Hail":
+                            ln.setBackgroundResource(baran);
+                            break;
+                        case "Windy":
+                            ln.setBackgroundResource(wind);
+                            break;
+                        case "Hot":
+                            ln.setBackgroundResource(aftabi);
+                            break;
+                        case "Heavy Snow":
+                            ln.setBackgroundResource(barf);
+                            break;
+                        case "Partly Cloudy":
+                            ln.setBackgroundResource(abriaftabi);
+                            break;
+                        case "Cloudy":
+                            ln.setBackgroundResource(abri);
+                            break;
+                        case "Mostly Cloudy":
+                            ln.setBackgroundResource(abri);
+                            break;
+                        case "Scattered Showers":
+                            ln.setBackgroundResource(baran);
+                            break;
+                        case "Clear":
+                            ln.setBackgroundResource(moon);
+                            break;
+                        default:
+                            ln.setBackgroundResource(background);
+                            break;
+                    }
 
-                    System.out.println(stringcityview);
+
 
                 }
                   });}
